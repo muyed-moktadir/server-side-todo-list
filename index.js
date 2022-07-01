@@ -27,7 +27,7 @@ async function run() {
     const todoCollection = client.db("todoList").collection("myTodos");
 
 
-    // TODO:get All Bike
+    // TODO:get All todolist
     app.get("/myTodoList", async (req, res) => {
       const query = {};
       const cursor = todoCollection.find(query);
@@ -45,18 +45,18 @@ async function run() {
     });
 
 
-    //TODO: delate a bike
-    app.delete("/inventory/:id", async (req, res) => {
+    //TODO: delate a todo
+    app.delete("/myTodoList/:id", async (req, res) => {
       const id = req.params.id;
       console.log(id);
       const query = { _id: ObjectId(id) };
-      const result = await bikeCollection.deleteOne(query);
+      const result = await todoCollection.deleteOne(query);
       res.send(result);
     });
 
 
 
-    //  TODO:Update a quantity:
+    //  TODO:Update a todo:
     app.put("/inventory/:id", async (req, res) => {
       const id = req.params.id;
       const updatedQuantity = req.body;
@@ -67,7 +67,7 @@ async function run() {
           quantity: updatedQuantity.newQuantity,
         },
       };
-      const result = await bikeCollection.updateOne(
+      const result = await todoCollection.updateOne(
         filter,
         updatedDoc,
         options
@@ -77,7 +77,7 @@ async function run() {
 
 
 
-    // TODO: Add a new bike
+    // TODO: Add a new todo
     app.post("/myTodoList", async (req, res) => {
       const newTodo = req.body;
       console.log("adding a new todolist", newTodo);
@@ -85,21 +85,6 @@ async function run() {
       res.send(result);
     });
 
-
-
-    // TODO:get All newBike ..  verifyJWT,
-    app.get("/inventory", async (req, res) => {
-      const decodedEmail = req.decoded.email;
-      console.log("decoded email", decodedEmail);
-      const authHeader = req.headers.authorization;
-      console.log(authHeader);
-      const email = req.query.email;
-      console.dir(email);
-        const query = { email: email };
-        const cursor = bikeCollection.filter(query);
-        const bikes = await cursor.toArray();
-        res.send(bikes);
-    });
   } finally {
     // await client.close();
   }
