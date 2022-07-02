@@ -44,8 +44,7 @@ async function run() {
       res.send(result);
     });
 
-
-    //TODO: delate a todo
+    //TODO: delete a todo
     app.delete("/myTodoList/:id", async (req, res) => {
       const id = req.params.id;
       console.log(id);
