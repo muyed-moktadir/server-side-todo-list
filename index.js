@@ -35,15 +35,7 @@ async function run() {
       res.send(todoLists);
     });
 
-
-    // TODO: get a bike:
-    app.get("/inventory/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const result = await bikeCollection.findOne(query);
-      res.send(result);
-    });
-
+    
     //TODO: delete a todo
     app.delete("/myTodoList/:id", async (req, res) => {
       const id = req.params.id;
